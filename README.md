@@ -32,7 +32,7 @@ This app requires passwordless `sudo` access to manage the `awdl0` network inter
 sudo visudo
 ```
 
-Add these lines at the end of the file:
+Add these lines AT THE END of the file:
 
 ```
 # Allow GeForce NOW Anti-Lag to manage awdl0 without password
