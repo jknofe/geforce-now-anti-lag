@@ -1,0 +1,32 @@
+#!/bin/bash
+GFN_APP=/Applications/GeForceNOW.app/Contents/MacOS/GeForceNOW
+
+# GeForce NOW Anti-Lag Application Launcher
+# This script runs the anti-lag optimization for GeForce NOW
+echo "Launching GeForce NOW App..."
+
+nohup "$GFN_APP" > /dev/null 2>&1 &
+GFN_PID=$!
+
+echo $GFN_PID
+
+echo "Running awdl0 disabler loop..."
+
+# Disable awdl0 to reduce latency for GeForce NOW
+while true; do
+    if ps -p "$GFN_PID" > /dev/null 2>&1; then
+        awdl0_state=$(/sbin/ifconfig awdl0 | grep status | awk '{ print $2}')
+        if [ "$awdl0_state" == "active" ]; then
+            sudo /sbin/ifconfig awdl0 down
+        fi
+        sleep 3
+    else
+        sudo /sbin/ifconfig awdl0 up
+        exit 0
+    fi
+done > /dev/null 2>&1 &  # send to background to end script here
+
+echo "Disabler PID is $!"
+echo "GeForce NOW Anti-Lag is running. You can close this terminal."
+
+exit 0
