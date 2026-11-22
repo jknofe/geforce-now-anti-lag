@@ -12,6 +12,14 @@ GeForce NOW Anti-Lag is a convenient dock-launchable app that:
 
 ## Installation
 
+0. **Build the launcher (requires Xcode Command Line Tools):**
+   ```bash
+   ./build.sh
+   ```
+   This compiles `src/main.swift` into the app bundle. The launcher is a native
+   Cocoa app (a background agent without its own Dock icon), so the Dock icon no
+   longer keeps bouncing after launch.
+
 1. **Copy the app to Applications folder:**
    ```bash
    cp -r "GeForce NOW Anti-Lag.app" /Applications/
@@ -76,7 +84,10 @@ The `awdl0` interface is Apple's Wireless Direct Link technology that can add la
 
 **App won't launch:**
 - Verify GeForce NOW is installed at `/Applications/GeForceNOW.app`
-- Check that the app is marked as executable: `chmod +x "GeForce NOW Anti-Lag.app/Contents/MacOS/GeForceNOWAntiLag"`
+- Rebuild the launcher with `./build.sh`
+
+**Dock icon keeps bouncing:**
+- Make sure you are running a build made with `./build.sh` (older versions used a shell script as the app executable, which never finishes launching from the Dock's point of view)
 
 ## Acknowledgments
 
